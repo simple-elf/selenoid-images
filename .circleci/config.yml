@@ -2,28 +2,34 @@ version: 2
 jobs:
   build:
     machine: true
+
     environment:
       APPIUM: '1.8.1'
       ANDROID: '8.0'
       IMAGE: 'simple1elf/android-test2'
       CHROME: 'y'
       DRIVER: '2.41'
+
     steps:
       - checkout
+
       - run:
-        name: Docker login
-        command: docker login -u simple1elf -p elektronik777
+          name: Docker login
+          command: docker login -u simple1elf -p elektronik777
+
       - run:
-        name: Make param.txt file
-        command: |
-          cd selenium
-          echo -e "$APPIUM\n$ANDROID\nNexus 6\n500\n500" > param.txt
-          (if [ "$CHROME" == "y" ]; then echo -e "$CHROME\n$DRIVER" >> param.txt; else echo -e "n\n" >> param.txt; fi)
-          echo -e "$IMAGE:$ANDROID\ny\n" >> param.txt
-          cat param.txt
+          name: Make param.txt file
+          command: |
+            cd selenium
+            echo -e "$APPIUM\n$ANDROID\nNexus 6\n500\n500" > param.txt
+            (if [ "$CHROME" == "y" ]; then echo -e "$CHROME\n$DRIVER" >> param.txt; else echo -e "n\n" >> param.txt; fi)
+            echo -e "$IMAGE:$ANDROID\ny\n" >> param.txt
+            cat param.txt
+
       - run:
-        name: run build script
-        command: cat param.txt | ./automate_android.sh
+          name: run build script
+          command: cat param.txt | ./automate_android.sh
+
       - run:
-        name: Docker push
-        command: docker push $IMAGE:$ANDROID
+          name: Docker push
+          command: docker push $IMAGE:$ANDROID
