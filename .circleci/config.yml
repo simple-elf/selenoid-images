@@ -15,7 +15,7 @@ jobs:
 
       - run:
           name: Docker login
-          command: docker login -u simple1elf -p elektronik777
+          command: docker login -u $DOCKER_HUB_LOGIN -p $DOCKER_HUB_PASS
 
       - run:
           name: Make param.txt file
