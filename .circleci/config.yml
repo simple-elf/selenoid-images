@@ -27,8 +27,10 @@ jobs:
             cat param.txt
 
       - run:
-          name: run build script
-          command: cat param.txt | ./automate_android.sh
+          name: Run build script
+          command: |
+            cd selenium
+            cat param.txt | ./automate_android.sh
 
       - run:
           name: Docker push
